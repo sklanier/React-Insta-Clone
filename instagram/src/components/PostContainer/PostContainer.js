@@ -1,47 +1,31 @@
 import React from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import PropTypes from './../../../node_modules/prop-types';
+import dummyData from '../../dummy-data';
 
-const Example = (props) => {
+function PostContainer(props) {
+  console.log(props);
   return (
-    <div>
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">@</InputGroupAddon>
-        <Input placeholder="username" />
-      </InputGroup>
-      <br />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>
-            <Input addon type="checkbox" aria-label="Checkbox for following text input" />
-          </InputGroupText>
-        </InputGroupAddon>
-        <Input placeholder="Check it out" />
-      </InputGroup>
-      <br />
-      <InputGroup>
-        <Input placeholder="username" />
-        <InputGroupAddon addonType="append">@example.com</InputGroupAddon>
-      </InputGroup>
-      <br />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>$</InputGroupText>
-          <InputGroupText>$</InputGroupText>
-        </InputGroupAddon>
-        <Input placeholder="Dolla dolla billz yo!" />
-        <InputGroupAddon addonType="append">
-          <InputGroupText>$</InputGroupText>
-          <InputGroupText>$</InputGroupText>
-        </InputGroupAddon>
-      </InputGroup>
-      <br />
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-        <Input placeholder="Amount" type="number" step="1" />
-        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-      </InputGroup>
-    </div>
+    <>
+      {props.post.map(dummyData => (
+        <div key={dummyData.username} className="post">
+          <img src={dummyData.imageUrl} alt={dummyData.username} />
+          <div>
+            <h3>{dummyData.name}</h3>
+          </div>
+        </div>
+      ))}
+    </>
   );
+}
+
+PostContainer.propTypes = {
+  post: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      img: PropTypes.string,
+      name: PropTypes.string,
+    })
+  )
 };
 
-export default Example;
+export default PostContainer;
